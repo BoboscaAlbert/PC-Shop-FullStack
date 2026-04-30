@@ -1,0 +1,41 @@
+<div class="container mt-4" style="max-width: 600px;">
+  <h2 class="mb-4">Finalizare Comandă</h2>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+      
+      <div class="alert alert-success fs-5 fw-bold text-center mb-4">
+        Total de plată: {{ totalToPay | number:'1.2-2' }} RON
+      </div>
+
+      <form (ngSubmit)="onPlaceOrder()" #checkoutForm="ngForm">
+        
+        <div class="mb-3">
+          <label class="form-label text-muted">Nume Complet</label>
+          <input type="text" class="form-control" name="fullName" 
+                 [(ngModel)]="shippingDetails.fullName" required placeholder="ex: Ion Popescu">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-muted">Adresă de livrare</label>
+          <textarea class="form-control" name="address" rows="3" 
+                    [(ngModel)]="shippingDetails.address" required placeholder="Strada, Numărul, Orașul..."></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-muted">Număr de telefon</label>
+          <input type="tel" class="form-control" name="phone" 
+                 [(ngModel)]="shippingDetails.phone" required placeholder="07...">
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="!checkoutForm.form.valid">
+            Trimite Comanda
+          </button>
+          <a routerLink="/cart" class="btn btn-light">Înapoi la coș</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

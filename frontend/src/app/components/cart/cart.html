@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <h2>Coșul tău de cumpărături</h2>
+
+  <div *ngIf="items.length === 0" class="alert alert-info">
+    Coșul este gol. <a routerLink="/products">Mergi la cumpărături!</a>
+  </div>
+
+  <div *ngIf="items.length > 0">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Imagine</th> <!-- Coloana pentru imagine -->
+          <th>Produs</th>
+          <th>Preț</th>
+          <th>Cantitate</th>
+          <th>Subtotal</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i = index">
+          <td>
+            <!-- REPARAȚIA: Am scos 'assets/' și am lăsat doar 'images/' -->
+            <img [src]="'images/' + (item.imageUrl || item.ImageUrl)" 
+                 alt="{{ item.name || item.Name }}"
+                 style="width: 60px; height: 60px; object-fit: contain;"
+                 onerror="this.src='https://via.placeholder.com/60?text=Fara+Foto'">
+          </td>
+          <td class="fw-bold">{{ item.name || item.Name }}</td>
+          <td>{{ (item.price || item.Price) | number:'1.2-2' }} RON</td>
+          <td>{{ item.quantity || item.Quantity }}</td>
+          <td>{{ (item.price || item.Price || 0) * (item.quantity || item.Quantity || 0) | number:'1.2-2' }} RON</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" (click)="removeItem(i)">
+              Elimină
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between mt-4 align-items-center">
+      <h4 class="mb-0">Total general: <span class="text-success">{{ getTotal() | number:'1.2-2' }} RON</span></h4>
+      <button class="btn btn-success btn-lg" routerLink="/checkout">Continuă spre Checkout</button>
+    </div>
+  </div>
+</div>

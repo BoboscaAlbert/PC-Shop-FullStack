@@ -1,0 +1,19 @@
+<nav class="navbar navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/products">PC Shop</a>
+    <div class="d-flex align-items-center">
+      <div *ngIf="!isLoggedIn">
+        <a class="btn btn-outline-light me-2" routerLink="/login">Login</a>
+        <a class="btn btn-outline-light me-2" routerLink="/register">Register</a>
+      </div>
+      
+      <div *ngIf="isLoggedIn">
+        <button class="btn btn-danger me-2" (click)="onLogout()">Logout</button>
+      </div>
+      
+      <a class="btn btn-primary" routerLink="/cart">Vezi Coșul</a>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

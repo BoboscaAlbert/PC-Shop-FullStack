@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Componente PC Disponibile</h2>
+    <span class="badge bg-primary" *ngIf="products">{{ products.length }} produse găsite</span>
+  </div>
+
+  <div class="row" *ngIf="products && products.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative text-center mt-3">
+          <!-- AM MODIFICAT AICI: Am scos 'assets/' pentru ca pozele tale sunt in public/images/ -->
+          <img [src]="'images/' + (product.imageUrl || product.ImageUrl)" 
+               class="card-img p-3" 
+               alt="{{ product.name || product.Name }}"
+               style="height: 200px; object-fit: contain;"
+               onerror="this.src='https://via.placeholder.com/300x200?text=Imagine+Negasita'">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="mb-2">
+            <span class="badge bg-secondary">{{ product.category || product.Category }}</span>
+          </div>
+          <h5 class="card-title text-dark fw-bold">{{ product.name || product.Name }}</h5>
+          <p class="card-text text-muted flex-grow-1 small">
+            {{ product.description || product.Description }}
+          </p>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="h5 mb-0 text-success fw-bold">{{ (product.price || product.Price) | number:'1.2-2' }} RON</span>
+            <button class="btn btn-primary btn-sm" (click)="onAddToCart(product)">
+              Adaugă în coș
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5 py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3 text-muted">Se încarcă inventarul...</p>
+  </div>
+</div>
